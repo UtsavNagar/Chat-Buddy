@@ -13,4 +13,12 @@ const store = configureStore({
     }
 })
 
+store.subscribe(()=>{
+    const {name,token,image,isLoginStatus} = store.getState().userInfo.value;
+    const dataForLocalStorage = JSON.stringify({name,token,image,isLoginStatus})
+    localStorage.setItem('chatBuddyLogeInData',dataForLocalStorage);
+    localStorage.setItem('chatBuddyUL',JSON.stringify(store.getState().usersList.value));
+    localStorage.setItem('chatBuddyPL',JSON.stringify(store.getState().postList.value));
+})
+
 export default store

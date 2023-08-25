@@ -1,10 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
+const initialState = {
+    value : JSON.parse(localStorage.getItem('chatBuddyPL')) || []
+}
 
 const slice = createSlice({
     name : "postSlice",
-    initialState :{
-        value : []
-    },
+    initialState,
     reducers:{
         updateList : (state,action) => {
             var data = action.payload

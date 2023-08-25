@@ -1,10 +1,17 @@
 import { createSlice } from "@reduxjs/toolkit";
+const dataFromLocalStorage = JSON.parse(localStorage.getItem('chatBuddyLogeInData')) || {};
+var initialState ={
+    value : {
+        name: dataFromLocalStorage.name || undefined,
+        token: dataFromLocalStorage.token || undefined,
+        image: dataFromLocalStorage.image || undefined,
+        isLoginStatus: dataFromLocalStorage.isLoginStatus || false 
+    }
+}
 
 const slice = createSlice({
     name : "userSlice",
-    initialState :{
-        value : {name:undefined,token:undefined,image:undefined,isLoginStatus:false}
-    },
+    initialState,
     reducers:{
         updateUser : (state,action) => {
             var data = action.payload
