@@ -8,6 +8,7 @@ import { updateList } from "../Slices/postList";
 import { updateUser } from "../Slices/UserSlice"; 
 
 export default function Profile(){
+    const [isLoaded,setLoadStatus] = useState(false);
     const [allComments,setAllComments] = useState([])
     var comment = useRef({value : undefined})
 
@@ -56,6 +57,7 @@ export default function Profile(){
 
     var loadPost=async()=>{
         const rspn = await WebMathodes.getApi(WebApi.postList,userData.token)
+        setLoadStatus(rspn.data.status)
         dispatch(updateList(rspn.data.data.map(cmt=>{
             if(cmt.postfile && cmt.postfile.slice(12,26)=='skilledfresher'){
                 cmt.postfile=cmt.postfile.replace('skilledfresher','codebetter')
@@ -100,9 +102,13 @@ export default function Profile(){
             loadProfile();
         }
     }
-    return <>
+    return <div>
+    
     <h1 className="alert-danger m-5 text-center">Profile</h1>
-
+    
+        <div hidden={isLoaded} className="LoadingArea">
+            <span class="loader"></span>
+        </div>
     <div className="container">
         <div className="row">
             <div style={{borderRadius:"10px",boxShadow:"0px 0px 15px lightgrey"}} className="col col-lg-4 col-sm-12 col-md-12 text-center m-2">
@@ -199,7 +205,7 @@ export default function Profile(){
         </div>
         :
         <div className="row m-1">
-        <div className="col-1">
+        <div className="col-10">
             <input  defaultValue={"Nice"} ref={comment} className="form-control" placeholder="Comment"/>
         </div>
         <div className="col-1">
@@ -267,5 +273,5 @@ export default function Profile(){
     </div>
 </div>
     )}
-    </>
+    </div>
 }
