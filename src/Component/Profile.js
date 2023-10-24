@@ -103,7 +103,6 @@ export default function Profile(){
         }
     }
     return <div>
-    
     <h1 className="alert-danger m-5 text-center">Profile</h1>
     
         <div hidden={isLoaded} className="LoadingArea">
@@ -113,10 +112,11 @@ export default function Profile(){
         <div className="row">
             <div style={{borderRadius:"10px",boxShadow:"0px 0px 15px lightgrey"}} className="col col-lg-4 col-sm-12 col-md-12 text-center m-2">
                 <h4 className="alert-info mt-1">ID : {userProfile.id}</h4>
-                <img src={userProfile.image} height={270} width={270} alt="Picture is Not Available"></img>
+                <img className="profile-photo" src={userProfile.image} height={270} width={270} alt="Picture is Not Available"></img>
                 <form onSubmit={updateImage}>
-                    <div className="row m-1">
-                        <div className="col-6">
+                    <div className="row m-1 ">
+                        <div className="col-6 choose-file">
+                            <span>Choose File</span>
                             <input ref={userPic} className="form-control alert-info" type="file"/>
                         </div>
                         <div className="col-6">

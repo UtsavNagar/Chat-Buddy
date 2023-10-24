@@ -97,14 +97,10 @@ export default function UserHome(){
         }
     }
 
-    const imageStyle = {
-        textDecoration: 'line-through',
-        opacity: 0.6,
-        height: '50px',
-        width: '50px',
-      };
-
     return <>
+    <div className="UP-buttonArea">
+        <img onClick={()=>{window.scrollTo(0,0)}} height={30} width={30} src="./personal Image/2132010.png"/>
+    </div>
     <div className="row p-3">
         <div className="col col-lg-6">
             <Link to={"/profile"}><img style={{borderRadius:"50%"}} src={userData.image} height={150} width={150}/></Link>
