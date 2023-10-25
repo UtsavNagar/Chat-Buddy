@@ -1,9 +1,10 @@
-import { useRef, useState } from "react"
+import { useRef, useState,useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { spesificUpdateUser } from "../Slices/spesificUser"
 import { useNavigate } from "react-router-dom"
 
 export default function AllUsers(){
+    const [isVisible,setVisiblity]=useState(false);
     const dispatch=useDispatch()
     const navigate=useNavigate()
     const [changes,setChanges] = useState(false)
@@ -34,12 +35,16 @@ export default function AllUsers(){
         }
     }
 
+    useEffect(()=>{
+        setVisiblity(true);
+    },[])
+
     var userInfoPage=(ob)=>{
         dispatch(spesificUpdateUser(ob))
         navigate("/specific-user-profile")
     }
 
-    return<div>
+    return<div className={`loading-area ${isVisible ? 'visible' : ''}`}>
         <div className="row m-3">
             <div className="col-10">
                 <input onChange={()=>{setChanges(!changes)}} ref={searchData} className="m-4 form-control" placeholder="Search By Name / id"/>

@@ -8,6 +8,7 @@ import { updateList } from "../Slices/postList";
 import { updateUser } from "../Slices/UserSlice"; 
 
 export default function Profile(){
+    const [isVisible,setVisiblity]=useState(false);
     const [isLoaded,setLoadStatus] = useState(false);
     const [allComments,setAllComments] = useState([])
     var comment = useRef({value : undefined})
@@ -73,6 +74,7 @@ export default function Profile(){
         loadProfile();
         loadUsersList()
         loadPost()
+        setVisiblity(true);
     },[])
 
     var loadUsersList=async()=>{
@@ -102,13 +104,12 @@ export default function Profile(){
             loadProfile();
         }
     }
-    return <div>
+    return <div className={`loading-area ${isVisible ? 'visible' : ''}`}>
     <h1 className="alert-danger m-5 text-center">Profile</h1>
-    
-        <div hidden={isLoaded} className="LoadingArea">
+    <div hidden={isLoaded} className="LoadingArea">
             <span class="loader"></span>
         </div>
-    <div className="container">
+    <div hidden={!isLoaded} className="container">
         <div className="row">
             <div style={{borderRadius:"10px",boxShadow:"0px 0px 15px lightgrey"}} className="col col-lg-4 col-sm-12 col-md-12 text-center m-2">
                 <h4 className="alert-info mt-1">ID : {userProfile.id}</h4>
@@ -164,9 +165,10 @@ export default function Profile(){
             </form>
             </div>
         </div>
+        
+        <hr/>
+        <h1 className="text-center">YOUR POST</h1>
     </div>
-<hr/>
-<h1 className="text-center">YOUR POST</h1>
 {postList.filter(ob=>ob.postBy.id==userProfile.id).map(ob=>ob.postfile==null? 
     <div style={{borderRadius:"10px",boxShadow:"0px 0px 15px lightgrey"}} className="m-5">
     <div className="row m-2">

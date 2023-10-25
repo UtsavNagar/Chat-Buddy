@@ -13,9 +13,9 @@ export default function Header(){
     const data = useSelector(state=>state.userInfo.value)
     return <div>
         <nav className="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-            <a href="index.html" className="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
+            <Link to={"/userhome"} className="navbar-brand d-flex align-items-center text-center py-0 px-4 px-lg-5">
                 <h1 className="m-0 text-secondary">Chat Buddy</h1>
-            </a>
+            </Link>
             <button type="button" className="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
                 <span className="navbar-toggler-icon"></span>
             </button>

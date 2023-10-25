@@ -1,6 +1,6 @@
 import About from "./Component/About";
 import Header from "./Component/Header";
-import Lognin from "./Component/Login";
+import Login from "./Component/Login";
 import Signup from "./Component/Signup";
 import { Route, Routes } from "react-router-dom";
 import Profile from "./Component/Profile";
@@ -15,7 +15,9 @@ import Error from "./Component/Error"
 export default function App(){
   const userData = useSelector(state=>state.userInfo.value)
   return <div>
-    <Header/>
+    <div className="menu-stick">
+      <Header/>
+    </div>
     <Routes>
   {userData.isLoginStatus?
   <>
@@ -26,16 +28,16 @@ export default function App(){
     <Route path="/profile" element={<Profile/>} />
     <Route path="/specific-user-profile" element={<SpesificUserProfile/>} />
     <Route path="/all-users" element={<AllUsers/>} />
-    </>
+  </>
   : 
   <>
-  <Route path="/" element={<Lognin/>}/>
+    <Route path="/" element={<Login/>}/>
     <Route path="/sign-up" element={<Signup/>}/>
-    </>
+  </>
     
   }
 
-<Route path="*" element={<Error/>}/>
+<Route path="*" element={<Login/>}/>
     </Routes>
   </div>
 }

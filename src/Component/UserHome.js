@@ -2,13 +2,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToPL, replaceInPL, updateList } from "../Slices/postList";
 import WebMathodes from "../WebServices/WebMathodes";
 import WebApi from "../WebServices/WebApi";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { spesificUpdateUser } from "../Slices/spesificUser";
 
 export default function UserHome(){
-
+    const [isVisible,setVisiblity]=useState(false);
     const [allComments,setAllComments] = useState([])
     var comment = useRef({value : undefined})
     const navigate = useNavigate()
@@ -22,6 +22,10 @@ export default function UserHome(){
     const userData = useSelector(state=>state.userInfo.value)
     console.log(userData)
     const dispatch = useDispatch()
+    
+    useEffect(()=>{
+        setVisiblity(true);
+    },[])
 
     var loadCom=(ob)=>{
         var cmt = ob.comments==undefined ? [] : ob.comments
@@ -97,13 +101,13 @@ export default function UserHome(){
         }
     }
 
-    return <>
+    return <div className={`loading-area ${isVisible ? 'visible' : ''}`}>
     <div className="UP-buttonArea">
-        <img onClick={()=>{window.scrollTo(0,0)}} height={30} width={30} src="./personal Image/2132010.png"/>
+       <img onClick={()=>{window.scrollTo(0,0)}} height={30} width={30} src="./personal Image/2132010.png"/>
     </div>
     <div className="row p-3">
         <div className="col col-lg-6">
-            <Link to={"/profile"}><img style={{borderRadius:"50%"}} src={userData.image} height={150} width={150}/></Link>
+            <Link to={"/profile"}><img className="profile-photo" style={{borderRadius:"50%"}} src={userData.image} height={150} width={150}/></Link>
             <h1>{userData.name}</h1>
         </div>
         
@@ -123,7 +127,8 @@ export default function UserHome(){
         <div className="col col-lg-8">
                     <textarea ref={textForPost} defaultValue={"Happiness is a joy Forever"} style={{borderRadius:"10px",border:"0px",boxShadow:"0px 0px 10px lightgrey",color:"black",fontWeight:"bolder"}} className="form-control text-center" placeholder="Enter Text" />            
             </div>
-            <div className="col col-lg-4">
+            <div className="col col-lg-4 choose-file">
+                    <span style={{textDecoration:"underline"}}>click here to choose File </span>
                     <input style={{height:"50px"}} ref={FileForPost} type="file"/>
             </div>            
         </div>
@@ -248,5 +253,5 @@ export default function UserHome(){
     </div>
 </div>
     )}
-    </>
+    </div>
 }
